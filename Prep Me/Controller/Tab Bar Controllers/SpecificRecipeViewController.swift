@@ -15,7 +15,7 @@ class SpecificRecipeViewController: UIViewController {
     @IBOutlet weak var calorieLabel: UILabel!
     @IBOutlet weak var ingredientsText: UILabel!
     @IBOutlet weak var instructionsText: UILabel!
-    @IBOutlet weak var leftoversText\: UILabel!
+    @IBOutlet weak var leftoversText: UILabel!
     
     var calories = " "
     var ingredients = [String]()
