@@ -31,13 +31,10 @@ class SpecificRecipeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 
@@ -45,7 +42,6 @@ class SpecificRecipeViewController: UIViewController {
         recipeName.text = name
         servingLabel.text = servings
         instructionsText.text = instructions
-
         calorieLabel.text = calories
         leftoversText.text = leftovers
         formatIngredients()
@@ -53,10 +49,11 @@ class SpecificRecipeViewController: UIViewController {
 
     @IBAction func mkeThisPressed(_ sender: UIButton) {
         
-        let newRecipe = RecipeModel()
-        newRecipe.recipe.recipeName = name
-        newRecipe.recipe.ingredients = ingredients
-        newRecipe.recipe.recipeID = recipeID
+//        let newRecipe = RecipeModel()
+//        newRecipe.recipe.recipeName = name
+//        newRecipe.recipe.ingredients = ingredients
+//        newRecipe.recipe.recipeID = recipeID
+         let newRecipe = RecipeModel(recipeName: name, calories: calories, recipeID: recipeID, instructions: instructions, leftovers: leftovers, ingredients: ingredients)
 
         if (selectedRecipes?.isEmpty)! {
             selectedRecipes![0] = newRecipe
@@ -67,8 +64,6 @@ class SpecificRecipeViewController: UIViewController {
         for recipe in selectedRecipes! {
             print(recipe)
         }
-      //  print(selectedRecipes)
-        
     }
     @IBAction func backButtonPressed(_ sender: Any) {
         ingredients.removeAll()

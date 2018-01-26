@@ -230,11 +230,19 @@
 			children = (
 				0126D2A61FAEACF300A5F4F4 /* HomeViewController.swift */,
 				01BED8AC1FC3369400850795 /* RecipesViewController.swift */,
-				0113C5111FF6C838002CD4AC /* SpecificCategoryViewController.swift */,
-				0113C50F1FF6C81D002CD4AC /* SpecificRecipeViewController.swift */,
+				01C05A0E201ACD9F000D3701 /* RecipesVCs */,
 				01062DB41FD249B500E24974 /* Add Recipe */,
 			);
 			path = "Tab Bar Controllers";
+			sourceTree = "<group>";
+		};
+		01C05A0E201ACD9F000D3701 /* RecipesVCs */ = {
+			isa = PBXGroup;
+			children = (
+				0113C5111FF6C838002CD4AC /* SpecificCategoryViewController.swift */,
+				0113C50F1FF6C81D002CD4AC /* SpecificRecipeViewController.swift */,
+			);
+			path = RecipesVCs;
 			sourceTree = "<group>";
 		};
 		E126FD267361C31D1C6CC9E5 /* Frameworks */ = {

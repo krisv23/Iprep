@@ -147,7 +147,6 @@ class AddRecipeViewController: UIViewController, UITextFieldDelegate, UITableVie
 //MARK : Tableview data
 /****************************************/
 extension AddRecipeViewController : UITableViewDataSource {
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -157,8 +156,6 @@ extension AddRecipeViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-      //  print(indexPath)
         let cell = UITableViewCell()
         cell.textLabel?.text = ingredientList[indexPath.row]
         return cell

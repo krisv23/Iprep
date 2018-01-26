@@ -27,16 +27,7 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
     var instructions = " "
     var name = " "
     var recipeID = " "
-    var RecipeList : [RecipeModel]?
     
-//    struct recipe {
-//        var ingredient : [String]
-//        var calorie : String
-//        var leftover : String
-//        var serving : String
-//        var instruction : String
-//    }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,14 +40,13 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
         let user = Auth.auth().currentUser
         categoryLabel.text = category
         if let user = user {
-            let uid = user.uid
             categoryRef.observeSingleEvent(of: .value, with: { (snapshot) in
                 if snapshot.hasChildren(){
                     for child in (snapshot.value as? NSDictionary)! {
                         if let object = child.value as? [String:AnyObject]{
                             let name = object["name"] as! String
                             self.nameArray.append(name)
-                            self.categoryDict["\(name)"] = child.key as! String
+                            self.categoryDict["\(name)"] = (child.key as! String)
                             self.recipeID = child.key as! String
                             print(self.nameArray)
                         }
@@ -67,6 +57,7 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
                 
             })
         }
+
         
     }
 
@@ -88,7 +79,6 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
     
     //Handles retrieving specific recipe data
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //Need to use nameArray[indexpath.row] to pull in that specific child
         ingredients.removeAll()
         if let key = categoryDict[nameArray[indexPath.row]] {
             self.name = nameArray[indexPath.row]
