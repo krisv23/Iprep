@@ -26,7 +26,7 @@ class SpecificRecipeViewController: UIViewController {
     var name = " "
     var recipeID = " "
     
-    var selectedRecipes : [RecipeModel]?
+    var selectedRecipes = [RecipeModel]()
     
     
     override func viewDidLoad() {
@@ -49,22 +49,34 @@ class SpecificRecipeViewController: UIViewController {
 
     @IBAction func mkeThisPressed(_ sender: UIButton) {
         
-//        let newRecipe = RecipeModel()
-//        newRecipe.recipe.recipeName = name
-//        newRecipe.recipe.ingredients = ingredients
-//        newRecipe.recipe.recipeID = recipeID
          let newRecipe = RecipeModel(recipeName: name, calories: calories, recipeID: recipeID, instructions: instructions, leftovers: leftovers, ingredients: ingredients)
+        
+        print(newRecipe)
 
-        if (selectedRecipes?.isEmpty)! {
-            selectedRecipes![0] = newRecipe
-        }else {
-            selectedRecipes?.append(newRecipe)
+        //MARK: Marked for deletion - old method crashing line 61.
+//        if (selectedRecipes?.isEmpty)! {
+//            print("In selectedRecipes\n")
+//            selectedRecipes![0] = newRecipe
+//        }else {
+//            print("\(selectedRecipes?.count)\n")
+//            print("\(selectedRecipes)\n")
+//            selectedRecipes?.append(newRecipe)
+//        }
+        
+            selectedRecipes.append(newRecipe)
+        
+        for recipe in selectedRecipes {
+            print(recipe.recipeName)
+            for ingredients in recipe.ingredients {
+                print(ingredients)
+            }
         }
         
-        for recipe in selectedRecipes! {
-            print(recipe)
-        }
+        
+        
     }
+    
+    
     @IBAction func backButtonPressed(_ sender: Any) {
         ingredients.removeAll()
         dismiss(animated: true, completion: nil)

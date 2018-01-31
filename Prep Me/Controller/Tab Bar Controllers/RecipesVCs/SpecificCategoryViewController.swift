@@ -27,6 +27,7 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
     var instructions = " "
     var name = " "
     var recipeID = " "
+    var selectedRecipe = [RecipeModel]()
     
     
     override func viewDidLoad() {
@@ -131,11 +132,20 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
             destinationVC?.servings = servings
             destinationVC?.name = name
             destinationVC?.recipeID = recipeID
+            destinationVC?.selectedRecipes = selectedRecipe
         }
     }
 
     @IBAction func backButtonPushed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func sourceViewControllReturn(sender : UIViewController){
+        let sourceVC = UIViewController() as? SpecificRecipeViewController
+        selectedRecipe = (sourceVC?.selectedRecipes)!
+        for recipes in selectedRecipe {
+            print(recipes.recipeName)
+        }
     }
 
 
