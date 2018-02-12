@@ -27,10 +27,12 @@ class SpecificRecipeViewController: UIViewController {
     var recipeID = " "
     
     var selectedRecipes = [RecipeModel]()
+    let dataURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Recipes.plist")
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,33 +49,22 @@ class SpecificRecipeViewController: UIViewController {
         formatIngredients()
     }
 
+    //MARK : Fire off data saves, decode used to first pull in saved information and save used to add the newly appended item to the plist.
     @IBAction func mkeThisPressed(_ sender: UIButton) {
         
-         let newRecipe = RecipeModel(recipeName: name, calories: calories, recipeID: recipeID, instructions: instructions, leftovers: leftovers, ingredients: ingredients)
+        print("Inside makethis")
+        decodeData()
         
-        print(newRecipe)
-
-        //MARK: Marked for deletion - old method crashing line 61.
-//        if (selectedRecipes?.isEmpty)! {
-//            print("In selectedRecipes\n")
-//            selectedRecipes![0] = newRecipe
-//        }else {
-//            print("\(selectedRecipes?.count)\n")
-//            print("\(selectedRecipes)\n")
-//            selectedRecipes?.append(newRecipe)
-//        }
-        
+        let newRecipe = RecipeModel(recipeName: name, calories: calories, recipeID: recipeID, instructions: instructions, leftovers: leftovers, ingredients: ingredients, servings : servings)
+        if(selectedRecipes.contains(newRecipe)){
+            alertMessage(message: "This recipe already exists in your list!", title: "Already Exists!")
+        }else {
             selectedRecipes.append(newRecipe)
-        
-        for recipe in selectedRecipes {
-            print(recipe.recipeName)
-            for ingredients in recipe.ingredients {
-                print(ingredients)
-            }
+            encodeData()
+            alertMessage(message: "Recipe added!", title: "Success!")
         }
         
-        
-        
+
     }
     
     
@@ -92,6 +83,48 @@ class SpecificRecipeViewController: UIViewController {
         
         ingredientsText.text = ingredientsFormatted.joined(separator: "\n")
         ingredientsText.sizeToFit()
+    }
+  
+
+    
+    func encodeData() {
+        let encoder = PropertyListEncoder()
+        do {
+            let data = try encoder.encode(selectedRecipes)
+            try data.write(to: dataURL!)
+        }catch {
+            print("Error in encoding recipes : \(error.localizedDescription)")
+        }
+    }
+    
+    func decodeData() {
+    
+        if let data = try? Data(contentsOf: dataURL!){
+            let decoder = PropertyListDecoder()
+            do{
+                selectedRecipes = try decoder.decode([RecipeModel].self, from: data)
+            }catch{
+                print("Error decoding recipe: \(error.localizedDescription)")
+            }
+        }
+        
+        
+    }
+    
+    func alertMessage (message : String, title : String) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        if(title == "Already Exists!"){
+            let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alertVC.addAction(action)
+        }else {
+            let action = UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                print("User tapped ok")
+            })
+            alertVC.addAction(action)
+        }
+        
+        self.present(alertVC, animated: true, completion: nil)
+
     }
 
     

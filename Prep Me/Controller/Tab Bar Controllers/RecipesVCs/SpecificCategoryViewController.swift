@@ -49,7 +49,7 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
                             self.nameArray.append(name)
                             self.categoryDict["\(name)"] = (child.key as! String)
                             self.recipeID = child.key as! String
-                            print(self.nameArray)
+                           // print(self.nameArray)
                         }
                         
                     }
@@ -67,6 +67,8 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
         super.didReceiveMemoryWarning()
     }
     
+    //MARK : Table view delegate methods
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return nameArray.count
         
@@ -78,7 +80,7 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
         return cell
     }
     
-    //Handles retrieving specific recipe data
+    //MARK : Networking
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         ingredients.removeAll()
         if let key = categoryDict[nameArray[indexPath.row]] {
@@ -140,13 +142,13 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
         dismiss(animated: true, completion: nil)
     }
     
-    func sourceViewControllReturn(sender : UIViewController){
-        let sourceVC = UIViewController() as? SpecificRecipeViewController
-        selectedRecipe = (sourceVC?.selectedRecipes)!
-        for recipes in selectedRecipe {
-            print(recipes.recipeName)
-        }
-    }
+//    @IBAction func sourceViewControllReturn(_ segue : UIStoryboardSegue){
+//        let sourceVC = segue.source as? SpecificRecipeViewController
+//        selectedRecipe = (sourceVC?.selectedRecipes)!
+//        for recipes in selectedRecipe {
+//            print(recipes.recipeName)
+//        }
+//    }
 
 
 }
