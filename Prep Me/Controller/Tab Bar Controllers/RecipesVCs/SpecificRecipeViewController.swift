@@ -8,7 +8,9 @@
 
 import UIKit
 
-class SpecificRecipeViewController: UIViewController {
+class SpecificRecipeViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
+    
 
     @IBOutlet weak var recipeName: UILabel!
     @IBOutlet weak var servingLabel: UILabel!
@@ -16,6 +18,7 @@ class SpecificRecipeViewController: UIViewController {
     @IBOutlet weak var ingredientsText: UILabel!
     @IBOutlet weak var instructionsText: UILabel!
     @IBOutlet weak var leftoversText: UILabel!
+    @IBOutlet weak var dayPicker: UIPickerView!
     
     var calories = " "
     var ingredients = [String]()
@@ -25,6 +28,8 @@ class SpecificRecipeViewController: UIViewController {
     var instructions = " "
     var name = " "
     var recipeID = " "
+    var selectedDay = "Select One"
+    let daysOfWeek = ["Select One", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
     var selectedRecipes = [RecipeModel]()
     let dataURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Recipes.plist")
@@ -32,6 +37,9 @@ class SpecificRecipeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dayPicker.dataSource = self
+        dayPicker.delegate = self
+        print(dataURL!)
         
     }
 
@@ -52,13 +60,15 @@ class SpecificRecipeViewController: UIViewController {
     //MARK : Fire off data saves, decode used to first pull in saved information and save used to add the newly appended item to the plist.
     @IBAction func mkeThisPressed(_ sender: UIButton) {
         
-        print("Inside makethis")
         decodeData()
-        
-        let newRecipe = RecipeModel(recipeName: name, calories: calories, recipeID: recipeID, instructions: instructions, leftovers: leftovers, ingredients: ingredients, servings : servings)
+        let newRecipe = RecipeModel()
+        setRecipeValues(recipe: newRecipe)
         if(selectedRecipes.contains(newRecipe)){
             alertMessage(message: "This recipe already exists in your list!", title: "Already Exists!")
+        }else if (selectedDay == "Select One"){
+            alertMessage(message: "Please select a day of the week ", title: "Select One")
         }else {
+            newRecipe.dayofWeek = selectedDay
             selectedRecipes.append(newRecipe)
             encodeData()
             alertMessage(message: "Recipe added!", title: "Success!")
@@ -73,6 +83,8 @@ class SpecificRecipeViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    //MARK: Formatting of ingredients label.
+    
     func formatIngredients() {
         
         ingredientsFormatted.removeAll()
@@ -86,6 +98,7 @@ class SpecificRecipeViewController: UIViewController {
     }
   
 
+    //MARK: Data manipulation
     
     func encodeData() {
         let encoder = PropertyListEncoder()
@@ -111,6 +124,29 @@ class SpecificRecipeViewController: UIViewController {
         
     }
     
+    
+    //MARK : Date Picker functionality
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return daysOfWeek.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return daysOfWeek[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedDay = daysOfWeek[row]
+    }
+    
+    
+    
+    //MARK : Alert messages
+    
     func alertMessage (message : String, title : String) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
         if(title == "Already Exists!"){
@@ -127,5 +163,14 @@ class SpecificRecipeViewController: UIViewController {
 
     }
 
+    func setRecipeValues(recipe : RecipeModel){
+        recipe.recipeName = name
+        recipe.calories = calories
+        recipe.recipeID = recipeID
+        recipe.instructions = instructions
+        recipe.leftovers = leftovers
+        recipe.ingredients = ingredients
+        recipe.servings = servings
+    }
     
 }

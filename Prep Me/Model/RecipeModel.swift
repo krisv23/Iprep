@@ -30,16 +30,18 @@ class RecipeModel: Encodable, Decodable, Equatable   {
     var leftovers = ""
     var servings = ""
     var ingredients = [String]()
+    var added : Bool = false
+    var dayofWeek = " "
     
-    init(recipeName : String, calories : String, recipeID : String, instructions: String, leftovers : String, ingredients : [String], servings : String) {
-        self.recipeName = recipeName
-        self.calories = calories
-        self.recipeID = recipeID
-        self.instructions = instructions
-        self.leftovers = leftovers
-        self.ingredients = ingredients
-        self.servings = servings
-    }
+//    init(recipeName : String, calories : String, recipeID : String, instructions: String, leftovers : String, ingredients : [String], servings : String) {
+//        self.recipeName = recipeName
+//        self.calories = calories
+//        self.recipeID = recipeID
+//        self.instructions = instructions
+//        self.leftovers = leftovers
+//        self.ingredients = ingredients
+//        self.servings = servings
+//    }
     
     
 }
