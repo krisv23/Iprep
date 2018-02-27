@@ -29,6 +29,7 @@ class AddRecipeViewController: UIViewController, UITextFieldDelegate, UITableVie
     var ingredientList = [String]()
     var categories = ["Breakfast", "Poultry", "Beef", "Seafood", "Pasta", "Soups and Sides", "Salads"]
     var selectedCategory = "Breakfast"
+    var nameCount = 0
  
     let userDefaults = UserDefaults.standard
     var refRecipe : DatabaseReference?
@@ -91,10 +92,16 @@ class AddRecipeViewController: UIViewController, UITextFieldDelegate, UITableVie
     
    
     @IBAction func submitPushed(_ sender: UIButton) {
+        
+        if let number = nameField.text?.count {
+            nameCount = number
+        }
         if ingredientList.isEmpty {
             alert(message: "No ingredients in list!")
         }else if nameField.text == nil{
             alert(message: "Please enter a recipe name!")
+        }else if nameCount > 27 {
+            alert(message: "The recipe name is to long! Please shorten below 25 characters.")
         }else {
             SVProgressHUD.show()
             AddData(_recipeName: nameField.text!)

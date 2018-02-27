@@ -39,6 +39,10 @@ class SpecificRecipeViewController: UIViewController, UIPickerViewDelegate, UIPi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ingredientsText.sizeToFit()
+        instructionsText.sizeToFit()
+        leftoversText.sizeToFit()
+        recipeName.sizeToFit()
         dayPicker.dataSource = self
         dayPicker.delegate = self
         print(recipeURL!)
@@ -56,6 +60,7 @@ class SpecificRecipeViewController: UIViewController, UIPickerViewDelegate, UIPi
         instructionsText.text = instructions
         calorieLabel.text = calories
         leftoversText.text = leftovers
+        print(leftovers)
         formatIngredients()
     }
 
