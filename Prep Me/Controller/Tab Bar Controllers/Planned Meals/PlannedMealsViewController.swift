@@ -31,7 +31,6 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
         orderedRecipes = loadOrderedRecipe()
     }
     
-//BUG Loaddata(orderedString) is overwriting initial load in value back to 0.
     override func viewWillAppear(_ animated: Bool) {
         loadData(recipeString)
         loadData(orderedString)
@@ -39,8 +38,8 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
             if recipe.added == false {
                 let selectedDay = days.index(of: recipe.dayofWeek)!
                 print(" In recipe added: \(numberOfRowsinSection)")
-                orderedRecipes[selectedDay].remove(at: numberOfRowsinSection[selectedDay])
-                orderedRecipes[selectedDay].insert(recipe, at: numberOfRowsinSection[selectedDay])
+                orderedRecipes[selectedDay].remove(at: (numberOfRowsinSection[selectedDay] - 1))
+                orderedRecipes[selectedDay].insert(recipe, at: (numberOfRowsinSection[selectedDay] - 1))
                 //numberOfRowsinSection[selectedDay] += 1
                 recipe.added = true
             }
