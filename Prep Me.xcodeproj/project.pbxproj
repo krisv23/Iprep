@@ -25,8 +25,8 @@
 		0126D2A41FAE495900A5F4F4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0126D2771FAE447800A5F4F4 /* Info.plist */; };
 		0126D2A51FAE495900A5F4F4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0126D2771FAE447800A5F4F4 /* Info.plist */; };
 		0126D2A71FAEACF400A5F4F4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0126D2A61FAEACF300A5F4F4 /* HomeViewController.swift */; };
-		013E0C811FE2281F00516531 /* UserRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 013E0C801FE2281F00516531 /* UserRecipes.swift */; };
 		01BED8AD1FC3369400850795 /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BED8AC1FC3369400850795 /* RecipesViewController.swift */; };
+		01C0284A202E959400397460 /* PlannedMealsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C02849202E959400397460 /* PlannedMealsViewController.swift */; };
 		01D5A2091FFD2B81007C34A2 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5A2081FFD2B81007C34A2 /* RecipeModel.swift */; };
 		01D5A20B1FFD35CD007C34A2 /* IngredientModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5A20A1FFD35CD007C34A2 /* IngredientModel.swift */; };
 		AB42EF2022290B8CD5FE3B42 /* Pods_Prep_Me.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0F4FCAE99DFF20CC2D74E17A /* Pods_Prep_Me.framework */; };
@@ -73,8 +73,8 @@
 		0126D29F1FAE488900A5F4F4 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		0126D2A11FAE489800A5F4F4 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		0126D2A61FAEACF300A5F4F4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		013E0C801FE2281F00516531 /* UserRecipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRecipes.swift; sourceTree = "<group>"; };
 		01BED8AC1FC3369400850795 /* RecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
+		01C02849202E959400397460 /* PlannedMealsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedMealsViewController.swift; sourceTree = "<group>"; };
 		01D5A2081FFD2B81007C34A2 /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
 		01D5A20A1FFD35CD007C34A2 /* IngredientModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientModel.swift; sourceTree = "<group>"; };
 		0F4FCAE99DFF20CC2D74E17A /* Pods_Prep_Me.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Prep_Me.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -189,7 +189,6 @@
 		0126D29C1FAE465500A5F4F4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				013E0C801FE2281F00516531 /* UserRecipes.swift */,
 				01D5A2081FFD2B81007C34A2 /* RecipeModel.swift */,
 				01D5A20A1FFD35CD007C34A2 /* IngredientModel.swift */,
 			);
@@ -232,8 +231,17 @@
 				01BED8AC1FC3369400850795 /* RecipesViewController.swift */,
 				01C05A0E201ACD9F000D3701 /* RecipesVCs */,
 				01062DB41FD249B500E24974 /* Add Recipe */,
+				01C02844202E92D800397460 /* Planned Meals */,
 			);
 			path = "Tab Bar Controllers";
+			sourceTree = "<group>";
+		};
+		01C02844202E92D800397460 /* Planned Meals */ = {
+			isa = PBXGroup;
+			children = (
+				01C02849202E959400397460 /* PlannedMealsViewController.swift */,
+			);
+			path = "Planned Meals";
 			sourceTree = "<group>";
 		};
 		01C05A0E201ACD9F000D3701 /* RecipesVCs */ = {
@@ -587,8 +595,8 @@
 				0126D2A01FAE488900A5F4F4 /* RegisterViewController.swift in Sources */,
 				0126D26E1FAE447800A5F4F4 /* ViewController.swift in Sources */,
 				0113C5101FF6C81D002CD4AC /* SpecificRecipeViewController.swift in Sources */,
+				01C0284A202E959400397460 /* PlannedMealsViewController.swift in Sources */,
 				01BED8AD1FC3369400850795 /* RecipesViewController.swift in Sources */,
-				013E0C811FE2281F00516531 /* UserRecipes.swift in Sources */,
 				0126D26C1FAE447800A5F4F4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

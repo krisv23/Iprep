@@ -27,6 +27,7 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
     var instructions = " "
     var name = " "
     var recipeID = " "
+    var selectedRecipe = [RecipeModel]()
     
     
     override func viewDidLoad() {
@@ -48,7 +49,7 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
                             self.nameArray.append(name)
                             self.categoryDict["\(name)"] = (child.key as! String)
                             self.recipeID = child.key as! String
-                            print(self.nameArray)
+                           // print(self.nameArray)
                         }
                         
                     }
@@ -66,6 +67,8 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
         super.didReceiveMemoryWarning()
     }
     
+    //MARK : Table view delegate methods
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return nameArray.count
         
@@ -77,7 +80,7 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
         return cell
     }
     
-    //Handles retrieving specific recipe data
+    //MARK : Networking
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         ingredients.removeAll()
         if let key = categoryDict[nameArray[indexPath.row]] {
@@ -131,12 +134,21 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
             destinationVC?.servings = servings
             destinationVC?.name = name
             destinationVC?.recipeID = recipeID
+            destinationVC?.selectedRecipes = selectedRecipe
         }
     }
 
     @IBAction func backButtonPushed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    
+//    @IBAction func sourceViewControllReturn(_ segue : UIStoryboardSegue){
+//        let sourceVC = segue.source as? SpecificRecipeViewController
+//        selectedRecipe = (sourceVC?.selectedRecipes)!
+//        for recipes in selectedRecipe {
+//            print(recipes.recipeName)
+//        }
+//    }
 
 
 }
