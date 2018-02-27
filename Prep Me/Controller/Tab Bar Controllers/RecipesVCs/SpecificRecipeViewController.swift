@@ -19,7 +19,7 @@ class SpecificRecipeViewController: UIViewController, UIPickerViewDelegate, UIPi
     @IBOutlet weak var instructionsText: UILabel!
     @IBOutlet weak var leftoversText: UILabel!
     @IBOutlet weak var dayPicker: UIPickerView!
-    
+    var numberOfRowsinSection = [0,0,0,0,0,0,0]
     var calories = " "
     var ingredients = [String]()
     var ingredientsFormatted = [String]()
@@ -32,14 +32,16 @@ class SpecificRecipeViewController: UIViewController, UIPickerViewDelegate, UIPi
     let daysOfWeek = ["Select One", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
     var selectedRecipes = [RecipeModel]()
-    let dataURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Recipes.plist")
-    
+    let recipeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Recipes.plist")
+    let orderedURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Ordered.plist")
+    let recipeString = "selectedMeals"
+    let orderedString = "orderedArray"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         dayPicker.dataSource = self
         dayPicker.delegate = self
-        print(dataURL!)
+        print(recipeURL!)
         
     }
 
@@ -59,18 +61,25 @@ class SpecificRecipeViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     //MARK : Fire off data saves, decode used to first pull in saved information and save used to add the newly appended item to the plist.
     @IBAction func mkeThisPressed(_ sender: UIButton) {
-        
-        decodeData()
+
+        loadData(recipeString)
+        loadData(orderedString)
+        print("Inside makethispressed \(numberOfRowsinSection)")
         let newRecipe = RecipeModel()
         setRecipeValues(recipe: newRecipe)
         if(selectedRecipes.contains(newRecipe)){
             alertMessage(message: "This recipe already exists in your list!", title: "Already Exists!")
         }else if (selectedDay == "Select One"){
             alertMessage(message: "Please select a day of the week ", title: "Select One")
+        }
+        else if (numberOfRowsinSection[(daysOfWeek.index(of: selectedDay)!) - 1] == 3){
+            alertMessage(message: "This day of the week already has 3 recipes!", title: "Error" )
         }else {
             newRecipe.dayofWeek = selectedDay
             selectedRecipes.append(newRecipe)
-            encodeData()
+            numberOfRowsinSection[(daysOfWeek.index(of: selectedDay)!) - 1] += 1
+            encodeData(recipeString)
+            encodeData(orderedString)
             alertMessage(message: "Recipe added!", title: "Success!")
         }
         
@@ -100,29 +109,63 @@ class SpecificRecipeViewController: UIViewController, UIPickerViewDelegate, UIPi
 
     //MARK: Data manipulation
     
-    func encodeData() {
+    
+    func encodeData(_ type : String) {
+        
         let encoder = PropertyListEncoder()
-        do {
-            let data = try encoder.encode(selectedRecipes)
-            try data.write(to: dataURL!)
+        do{
+            if type == "selectedMeals"{
+                let data =  try encoder.encode(selectedRecipes)
+                try data.write(to: recipeURL!)
+            }else {
+                let data =  try encoder.encode(numberOfRowsinSection)
+                try data.write(to: orderedURL!)
+            }
         }catch {
-            print("Error in encoding recipes : \(error.localizedDescription)")
+            print("Error encoding data: \(error.localizedDescription)")
         }
+        
     }
     
-    func decodeData() {
     
-        if let data = try? Data(contentsOf: dataURL!){
-            let decoder = PropertyListDecoder()
-            do{
-                selectedRecipes = try decoder.decode([RecipeModel].self, from: data)
-            }catch{
-                print("Error decoding recipe: \(error.localizedDescription)")
+    
+    func loadData(_ type : String) {
+        
+        if type == "selectedMeals" {
+            if let data = try? Data(contentsOf: recipeURL!){
+                let decoder = PropertyListDecoder()
+                do {
+                    selectedRecipes = try decoder.decode([RecipeModel].self, from: data)
+                }catch {
+                    print("Error decoding data: \(error.localizedDescription)")
+                }
+            }
+        } else {
+            if let data = try? Data(contentsOf: orderedURL!){
+                let decoder = PropertyListDecoder()
+                do {
+                    numberOfRowsinSection = try decoder.decode([Int].self, from: data)
+                }catch {
+                    print("Error decoding data: \(error.localizedDescription)")
+                }
             }
         }
         
-        
     }
+    
+//    func decodeData() {
+//    
+//        if let data = try? Data(contentsOf: dataURL!){
+//            let decoder = PropertyListDecoder()
+//            do{
+//                selectedRecipes = try decoder.decode([RecipeModel].self, from: data)
+//            }catch{
+//                print("Error decoding recipe: \(error.localizedDescription)")
+//            }
+//        }
+//        
+//        
+//    }
     
     
     //MARK : Date Picker functionality

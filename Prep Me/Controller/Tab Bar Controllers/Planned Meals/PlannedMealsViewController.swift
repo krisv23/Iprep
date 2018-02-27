@@ -29,26 +29,23 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
         mealTableView.delegate = self
         mealTableView.dataSource = self
         orderedRecipes = loadOrderedRecipe()
-//        loadData(orderedString)
-//        initializeNumRows()
     }
     
-
+//BUG Loaddata(orderedString) is overwriting initial load in value back to 0.
     override func viewWillAppear(_ animated: Bool) {
         loadData(recipeString)
         loadData(orderedString)
-        print("Ordered String - \(orderedRecipes)")
         for recipe in selectedMeals {
             if recipe.added == false {
                 let selectedDay = days.index(of: recipe.dayofWeek)!
                 print(" In recipe added: \(numberOfRowsinSection)")
                 orderedRecipes[selectedDay].remove(at: numberOfRowsinSection[selectedDay])
                 orderedRecipes[selectedDay].insert(recipe, at: numberOfRowsinSection[selectedDay])
-                numberOfRowsinSection[selectedDay] += 1
+                //numberOfRowsinSection[selectedDay] += 1
                 recipe.added = true
             }
             encodeData(recipeString)
-            encodeData(orderedString)
+       //     encodeData(orderedString)
             mealTableView.reloadData()
             print(numberOfRowsinSection)
         }
@@ -121,7 +118,7 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
     
     
     //Allows the orderedRecipes array to pull in all recipes in the PLIST when the app is opened after being killed
-    //BUG FIX: Crashing because there are 4 recipes on tuesday and only 3 values instanstiated in the 2d array (referencing an index out of range) Need to prevent adding more then 3 recipes to a day. -- FIXED
+    //BUG FIX:
     func loadOrderedRecipe() -> [[RecipeModel]] {
         print("Number in initial load \(numberOfRowsinSection)")
         var orderedList = instanstiateMultiArray()
@@ -132,7 +129,8 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
                 orderedList[selectedDay].insert(recipe, at: numberOfRowsinSection[selectedDay])
                 numberOfRowsinSection[selectedDay] += 1
             }
-
+            print("Number after initial load \(numberOfRowsinSection)")
+            encodeData(orderedString)
             return orderedList
         }
    
