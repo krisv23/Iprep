@@ -67,7 +67,7 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
         super.didReceiveMemoryWarning()
     }
     
-    //MARK : Table view delegate methods
+    //MARK: Table view delegate methods
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return nameArray.count
@@ -80,7 +80,7 @@ class SpecificCategoryViewController: UIViewController, UITableViewDelegate, UIT
         return cell
     }
     
-    //MARK : Networking
+    //MARK: Networking
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         ingredients.removeAll()
         if let key = categoryDict[nameArray[indexPath.row]] {

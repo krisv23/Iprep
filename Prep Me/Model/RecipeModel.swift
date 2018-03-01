@@ -7,12 +7,6 @@
 //
 
 import Foundation
-
-//struct Recipe {
-//    var recipeName : String?
-//    var recipeID : String?
-//    var ingredients : [String]?
-//}
 //This class keeps track of the recipes selected to be made. An object of this class will be stored in an array of all recipes currently set to be made. The array will be passed around view controllers to keep track of the state of the recipes.
 
 func ==(lhs: RecipeModel, rhs: RecipeModel) -> Bool {
@@ -21,8 +15,6 @@ func ==(lhs: RecipeModel, rhs: RecipeModel) -> Bool {
 
 class RecipeModel: Encodable, Decodable, Equatable   {
 
-    
-    
     var recipeName = ""
     var calories = ""
     var recipeID = ""
@@ -32,16 +24,7 @@ class RecipeModel: Encodable, Decodable, Equatable   {
     var ingredients = [String]()
     var added : Bool = false
     var dayofWeek = " "
-    
-//    init(recipeName : String, calories : String, recipeID : String, instructions: String, leftovers : String, ingredients : [String], servings : String) {
-//        self.recipeName = recipeName
-//        self.calories = calories
-//        self.recipeID = recipeID
-//        self.instructions = instructions
-//        self.leftovers = leftovers
-//        self.ingredients = ingredients
-//        self.servings = servings
-//    }
-    
-    
+    var dayChanged = false
+    var section = 0
+    var row = 0
 }

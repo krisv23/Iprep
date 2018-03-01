@@ -22,6 +22,8 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
     let orderedURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Ordered.plist")
     let recipeString = "selectedMeals"
     let orderedString = "orderedArray"
+    var chosenDish = RecipeModel()
+    var selectedDay = 0
 
     
     override func viewDidLoad() {
@@ -35,13 +37,27 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
         loadData(recipeString)
         loadData(orderedString)
         for recipe in selectedMeals {
-            if recipe.added == false {
-                let selectedDay = days.index(of: recipe.dayofWeek)!
+            if recipe.added == false  {
+                selectedDay = days.index(of: recipe.dayofWeek)!
                 print(" In recipe added: \(numberOfRowsinSection)")
+                print("Selected day : \(selectedDay)")
                 orderedRecipes[selectedDay].remove(at: (numberOfRowsinSection[selectedDay] - 1))
                 orderedRecipes[selectedDay].insert(recipe, at: (numberOfRowsinSection[selectedDay] - 1))
                 //numberOfRowsinSection[selectedDay] += 1
                 recipe.added = true
+            }
+            if recipe.dayChanged == true {
+                print("inside day changed")
+                print("Recipe name: \(recipe.recipeName)")
+                let emptyMeal = RecipeModel()
+                selectedDay = days.index(of: recipe.dayofWeek)!
+                print("Selected day : \(selectedDay)")
+                print("Recipe : Recipe section : \(recipe.section), Recipe row : \(recipe.row)")
+                orderedRecipes[recipe.section].remove(at: recipe.row)
+                orderedRecipes[recipe.section].insert(emptyMeal, at: recipe.row)
+                orderedRecipes[selectedDay].remove(at: (numberOfRowsinSection[selectedDay] - 1))
+                orderedRecipes[selectedDay].insert(recipe, at: (numberOfRowsinSection[selectedDay] - 1))
+                recipe.dayChanged = false
             }
             encodeData(recipeString)
        //     encodeData(orderedString)
@@ -70,8 +86,19 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
         return days[section]
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+         chosenDish = orderedRecipes[indexPath.section][indexPath.row]
+        chosenDish.section = indexPath.section
+        chosenDish.row = indexPath.row
+        print("ChosenDish : Recipe section : \(chosenDish.section), Recipe row : \(chosenDish.row)")
+        if !(chosenDish.recipeName.isEmpty){
+            mealTableView.deselectRow(at: indexPath, animated: false)
+            performSegue(withIdentifier: "PlannedSpecificRecipe", sender: self)
+        }
+    }
     
-    //MARK : Data manipulation methods
+    
+    //MARK: Data manipulation methods
     //Encode saves the data to the users phone in a plist
     func encodeData(_ type : String) {
         
@@ -98,7 +125,7 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
                 do {
                     selectedMeals = try decoder.decode([RecipeModel].self, from: data)
                 }catch {
-                    print("Error decoding data: \(error.localizedDescription)")
+                    print("Error decoding data: \(error)")
                 }
             }
         } else {
@@ -107,7 +134,7 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
                 do {
                     numberOfRowsinSection = try decoder.decode([Int].self, from: data)
                 }catch {
-                    print("Error decoding data: \(error.localizedDescription)")
+                    print("Error decoding data: \(error)")
                 }
             }
         }
@@ -117,7 +144,6 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
     
     
     //Allows the orderedRecipes array to pull in all recipes in the PLIST when the app is opened after being killed
-    //BUG FIX:
     func loadOrderedRecipe() -> [[RecipeModel]] {
         print("Number in initial load \(numberOfRowsinSection)")
         var orderedList = instanstiateMultiArray()
@@ -146,6 +172,27 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
             }
         }
         return multiArray
+    }
+    //create a new recipe model and append it to the old location of the old day and then insert it into the new day
+    func updateChangedDay(){
+        
+    }
+    
+    //MARK: Segue Preparation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PlannedSpecificRecipe" {
+            selectedDay = days.index(of: chosenDish.dayofWeek)!
+            let destinationVC = segue.destination as? PlannedSpecificRecipeVC
+            destinationVC?.chosenDish = chosenDish
+            destinationVC?.selectedDay = selectedDay
+//            destinationVC?.instructionsText = chosenDish.instructions
+//            destinationVC?.ingredientsText = chosenDish.ingredients
+//            destinationVC?.caloriesText = chosenDish.calories
+//            destinationVC?.servingsText = chosenDish.servings
+//            destinationVC?.leftoversText = chosenDish.leftovers
+//            destinationVC?.name = chosenDish.recipeName
+            
+        }
     }
 
 
