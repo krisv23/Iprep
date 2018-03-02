@@ -158,20 +158,7 @@ class SpecificRecipeViewController: UIViewController, UIPickerViewDelegate, UIPi
         
     }
     
-//    func decodeData() {
-//    
-//        if let data = try? Data(contentsOf: dataURL!){
-//            let decoder = PropertyListDecoder()
-//            do{
-//                selectedRecipes = try decoder.decode([RecipeModel].self, from: data)
-//            }catch{
-//                print("Error decoding recipe: \(error.localizedDescription)")
-//            }
-//        }
-//        
-//        
-//    }
-    
+
     
     //MARK : Date Picker functionality
     

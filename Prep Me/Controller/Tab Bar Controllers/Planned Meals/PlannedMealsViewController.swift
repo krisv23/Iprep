@@ -49,14 +49,7 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
             if recipe.dayChanged == true {
                 print("inside day changed")
                 print("Recipe name: \(recipe.recipeName)")
-                let emptyMeal = RecipeModel()
-                selectedDay = days.index(of: recipe.dayofWeek)!
-                print("Selected day : \(selectedDay)")
-                print("Recipe : Recipe section : \(recipe.section), Recipe row : \(recipe.row)")
-                orderedRecipes[recipe.section].remove(at: recipe.row)
-                orderedRecipes[recipe.section].insert(emptyMeal, at: recipe.row)
-                orderedRecipes[selectedDay].remove(at: (numberOfRowsinSection[selectedDay] - 1))
-                orderedRecipes[selectedDay].insert(recipe, at: (numberOfRowsinSection[selectedDay] - 1))
+                updateRecipeLocation(recipe: recipe)
                 recipe.dayChanged = false
             }
             encodeData(recipeString)
@@ -66,6 +59,31 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
 
+    func updateRecipeLocation(recipe : RecipeModel) {
+        
+        
+        let emptyMeal = RecipeModel()
+        selectedDay = days.index(of: recipe.dayofWeek)!
+//        print("Selected day : \(selectedDay)")
+//        print("Recipe : Recipe section : \(recipe.section), Recipe row : \(recipe.row)")
+        orderedRecipes[recipe.section].remove(at: recipe.row)
+        orderedRecipes[recipe.section].insert(emptyMeal, at: recipe.row)
+        orderedRecipes[selectedDay].remove(at: (numberOfRowsinSection[selectedDay] - 1))
+        orderedRecipes[selectedDay].insert(recipe, at: (numberOfRowsinSection[selectedDay] - 1))
+        
+        switch recipe.row {
+        case 0:
+            orderedRecipes[recipe.section].swapAt(0, 1)
+            orderedRecipes[recipe.section].swapAt(1, 2)
+        case 1:
+            orderedRecipes[recipe.section].swapAt(1, 2)
+        default:
+            print("Do nothing")
+        }
+        
+        
+        
+    }
     
     //MARK: Tableview datasource/delegate
     func numberOfSections(in tableView: UITableView) -> Int {

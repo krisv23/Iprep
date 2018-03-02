@@ -152,18 +152,23 @@ class PlannedSpecificRecipeVC: UIViewController, UIPickerViewDelegate, UIPickerV
             daysOfWeek.isUserInteractionEnabled = false
             editBtn.setTitle("Edit", for: .normal)
             if selectedDay != newDay {
-                let index = selectedMeals.index(of: chosenDish)
-                print("index \(index)")
-                numberOfRowsinSection[selectedDay] -= 1
-                numberOfRowsinSection[newDay] += 1
-                selectedMeals[index!].dayChanged = true
-                selectedMeals[index!].dayofWeek = days[newDay]
-                selectedMeals[index!].row = chosenDish.row
-                selectedMeals[index!].section = chosenDish.section
-                print(selectedMeals[index!].recipeName)
-                print("Section:  \(selectedMeals[index!].section) Row: \(selectedMeals[index!].row)")
-                encodeData(orderedString)
-                encodeData(recipeString)
+                if numberOfRowsinSection[newDay] == 3 {
+                    alertPopUp("Error!", "\(days[newDay]) is already full.")
+                    daysOfWeek.selectRow(selectedDay, inComponent: 0, animated: false)
+                } else {
+                    let index = selectedMeals.index(of: chosenDish)
+                    numberOfRowsinSection[selectedDay] -= 1
+                    numberOfRowsinSection[newDay] += 1
+                    selectedMeals[index!].dayChanged = true
+                    selectedMeals[index!].dayofWeek = days[newDay]
+                    selectedMeals[index!].row = chosenDish.row
+                    selectedMeals[index!].section = chosenDish.section
+                    print(selectedMeals[index!].recipeName)
+                    print("Section:  \(selectedMeals[index!].section) Row: \(selectedMeals[index!].row)")
+                    encodeData(orderedString)
+                    encodeData(recipeString)
+                }
+
             }
         }else {
             editBtn.isSelected = true
@@ -180,7 +185,12 @@ class PlannedSpecificRecipeVC: UIViewController, UIPickerViewDelegate, UIPickerV
     
     //MARK: Alert Message
     func alertPopUp(_ title : String, _ message : String) {
+        let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let alert = UIAlertAction(title: "Ok", style: .default, handler: nil)
         
+        alertVC.addAction(alert)
+        
+        self.present(alertVC, animated: true, completion: nil)
     }
 
 }
