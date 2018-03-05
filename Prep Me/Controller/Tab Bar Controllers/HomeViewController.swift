@@ -33,10 +33,8 @@ class HomeViewController: UIViewController {
             if let displayName = displayName {
                 displayNameText.text = "Hello, \(displayName)!"
             }
-            
-            
         }else {
-            displayNameText.text = "Welcome to the IPrep!"
+            displayNameText.text = "Welcome to IPrep!"
         }
     }
 
