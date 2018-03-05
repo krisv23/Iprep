@@ -118,13 +118,16 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if  editingStyle == .delete {
-            loadData(recipeString)
-            loadData(orderedString)
-            let indexofMeal = selectedMeals.index(of: orderedRecipes[indexPath.section][indexPath.row])
-            orderedRecipes[indexPath.section].remove(at: indexPath.row)
-            mealTableView.deleteRows(at: [indexPath], with: .top)
-            deleteRow(section: indexPath.section, row: indexPath.row, index: indexofMeal!)
-            tableView.reloadData()
+            if !orderedRecipes[indexPath.section][indexPath.row].recipeName.isEmpty {
+                loadData(recipeString)
+                loadData(orderedString)
+                let indexofMeal = selectedMeals.index(of: orderedRecipes[indexPath.section][indexPath.row])
+                orderedRecipes[indexPath.section].remove(at: indexPath.row)
+                mealTableView.deleteRows(at: [indexPath], with: .top)
+                deleteRow(section: indexPath.section, row: indexPath.row, index: indexofMeal!)
+                tableView.reloadData()
+            }
+
             
         }
     }
