@@ -26,6 +26,7 @@
 		0126D2A51FAE495900A5F4F4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0126D2771FAE447800A5F4F4 /* Info.plist */; };
 		0126D2A71FAEACF400A5F4F4 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0126D2A61FAEACF300A5F4F4 /* HomeViewController.swift */; };
 		01B8D8F82045AF7700D62211 /* PlannedSpecificRecipeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B8D8F72045AF7700D62211 /* PlannedSpecificRecipeVC.swift */; };
+		01B8D8FB20609F0700D62211 /* ShoppingListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B8D8FA20609F0700D62211 /* ShoppingListVC.swift */; };
 		01BED8AD1FC3369400850795 /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BED8AC1FC3369400850795 /* RecipesViewController.swift */; };
 		01C0284A202E959400397460 /* PlannedMealsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01C02849202E959400397460 /* PlannedMealsViewController.swift */; };
 		01D5A2091FFD2B81007C34A2 /* RecipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01D5A2081FFD2B81007C34A2 /* RecipeModel.swift */; };
@@ -75,6 +76,7 @@
 		0126D2A11FAE489800A5F4F4 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		0126D2A61FAEACF300A5F4F4 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		01B8D8F72045AF7700D62211 /* PlannedSpecificRecipeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedSpecificRecipeVC.swift; sourceTree = "<group>"; };
+		01B8D8FA20609F0700D62211 /* ShoppingListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListVC.swift; sourceTree = "<group>"; };
 		01BED8AC1FC3369400850795 /* RecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
 		01C02849202E959400397460 /* PlannedMealsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedMealsViewController.swift; sourceTree = "<group>"; };
 		01D5A2081FFD2B81007C34A2 /* RecipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeModel.swift; sourceTree = "<group>"; };
@@ -216,6 +218,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		01B8D8F920609EAD00D62211 /* Shopping list */ = {
+			isa = PBXGroup;
+			children = (
+				01B8D8FA20609F0700D62211 /* ShoppingListVC.swift */,
+			);
+			path = "Shopping list";
+			sourceTree = "<group>";
+		};
 		01BED8AE1FC3369C00850795 /* Registration and Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -234,6 +244,7 @@
 				01C05A0E201ACD9F000D3701 /* RecipesVCs */,
 				01062DB41FD249B500E24974 /* Add Recipe */,
 				01C02844202E92D800397460 /* Planned Meals */,
+				01B8D8F920609EAD00D62211 /* Shopping list */,
 			);
 			path = "Tab Bar Controllers";
 			sourceTree = "<group>";
@@ -594,6 +605,7 @@
 				01062DB61FD249DD00E24974 /* AddRecipeViewController.swift in Sources */,
 				0113C5121FF6C838002CD4AC /* SpecificCategoryViewController.swift in Sources */,
 				01062DB81FD5FC9E00E24974 /* ViewControllertest.swift in Sources */,
+				01B8D8FB20609F0700D62211 /* ShoppingListVC.swift in Sources */,
 				0126D2A21FAE489800A5F4F4 /* LogInViewController.swift in Sources */,
 				0126D2A01FAE488900A5F4F4 /* RegisterViewController.swift in Sources */,
 				0126D26E1FAE447800A5F4F4 /* ViewController.swift in Sources */,

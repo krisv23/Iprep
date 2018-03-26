@@ -473,23 +473,48 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aeT-Ue-9Bz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="783" y="1493"/>
+            <point key="canvasLocation" x="919" y="1492"/>
         </scene>
         <!--Shopping Cart-->
         <scene sceneID="jZ3-IO-9Wc">
             <objects>
-                <viewController id="R4y-IB-zVp" sceneMemberID="viewController">
+                <viewController id="R4y-IB-zVp" customClass="ShoppingListVC" customModule="Prep_Me" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="vXz-HK-cIb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="niM-yV-vwy">
+                                <rect key="frame" x="0.0" y="78" width="375" height="540"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cellList" id="LN7-EQ-3Ci">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LN7-EQ-3Ci" id="sBf-pm-QgV">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="niM-yV-vwy" firstAttribute="trailing" secondItem="3OC-re-NSt" secondAttribute="trailing" id="21i-B1-cXN"/>
+                            <constraint firstItem="niM-yV-vwy" firstAttribute="leading" secondItem="3OC-re-NSt" secondAttribute="leading" id="WJC-EO-07n"/>
+                            <constraint firstItem="niM-yV-vwy" firstAttribute="top" secondItem="3OC-re-NSt" secondAttribute="top" constant="58" id="qJH-i7-rpx"/>
+                            <constraint firstItem="niM-yV-vwy" firstAttribute="bottom" secondItem="3OC-re-NSt" secondAttribute="bottom" id="vTS-K9-0Hy"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="3OC-re-NSt"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Shopping Cart" id="DDC-Yk-ZxU"/>
+                    <connections>
+                        <outlet property="tableView" destination="niM-yV-vwy" id="1Vn-fY-MVo"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Ui-pf-WNI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2970" y="1516"/>
+            <point key="canvasLocation" x="2804" y="1491.9040479760122"/>
         </scene>
         <!--Home-->
         <scene sceneID="qC1-dc-U3i">

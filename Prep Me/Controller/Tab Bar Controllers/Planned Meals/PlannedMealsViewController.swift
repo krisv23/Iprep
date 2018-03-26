@@ -225,8 +225,8 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
             let destinationVC = segue.destination as? PlannedSpecificRecipeVC
             destinationVC?.chosenDish = chosenDish
             destinationVC?.selectedDay = selectedDay
+            destinationVC?.ingredientsText = chosenDish.ingredients
 //            destinationVC?.instructionsText = chosenDish.instructions
-//            destinationVC?.ingredientsText = chosenDish.ingredients
 //            destinationVC?.caloriesText = chosenDish.calories
 //            destinationVC?.servingsText = chosenDish.servings
 //            destinationVC?.leftoversText = chosenDish.leftovers

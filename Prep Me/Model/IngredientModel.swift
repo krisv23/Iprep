@@ -11,20 +11,27 @@ import Foundation
 //Plan is to create an array of this class storing the name of the ingredient as the class name and setting the amount and unit, as I go through ingredients and add to list, check to see if name exists in array if it does then update existing one with new amount else add it to array
 class IngredientModel {
     
-    var amount = 0
+    var amount = ""
     var unit = ""
-  //  var name = ""
+    var name = ""
     
-    init(amount : Int, unit : String) {
-     //   self.name = name
+    init(amount : String, unit : String, name : String) {
         self.amount = amount
         self.unit = unit
+        self.name = name
+    }
+    
+    func combinedName() -> String {
+        if amount != " " && unit != " "{
+            return ("\(amount)  \(unit)  \(name)")
+        }
+            return name
     }
     
     //Call this function on the existing IngredientModel class in the array to update the current amount
-    func updateAmount(newAmount : Int) {
-        self.amount = self.amount + newAmount
-    }
+//    func updateAmount(newAmount : Int) {
+//        self.amount = self.amount + newAmount
+//    }
     
     
 }

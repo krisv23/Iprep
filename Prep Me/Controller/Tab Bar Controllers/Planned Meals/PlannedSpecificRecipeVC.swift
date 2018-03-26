@@ -83,12 +83,13 @@ class PlannedSpecificRecipeVC: UIViewController, UIPickerViewDelegate, UIPickerV
     //MARK: Formatted ingredients
     func formatIngredients() {
         ingredientsFormatted.removeAll()
+        print("ingredientsText: \(ingredientsText)")
         for string in ingredientsText {
             let formattedString = "\u{2022} \(string) \n"
             ingredientsFormatted.append(formattedString)
         }
-        
         ingredientList.text = ingredientsFormatted.joined(separator: "\n")
+        print("ingredients text : \(ingredientList.text)")
         ingredientList.sizeToFit()
     }
     
