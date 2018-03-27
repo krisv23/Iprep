@@ -19,27 +19,56 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var name = " "
     var amount = 0.0
     var unit = " "
+    let userDefaults = UserDefaults.standard
+    var updateState = false
     
     
     let recipeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Recipes.plist")
+    let shoppingURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("shoppingList.plist")
+    let completedURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("completedList.plist")
 
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
-        loadData()
-        loadIngredients()
+//        loadData("recipes")
+//        if loadData("shopping") == 0 || loadData("completed") == 0 {
+//            loadIngredients()
+//        }
         tableView.dataSource = self
         tableView.delegate = self
-      //  tableView.reloadData()
+        tableView.reloadData()
         super.viewDidLoad()
     }
     
+    //TODO: Need to load shopping and completed list if not null and then display those ingredients in each, when view exiting need to save updated list for both arrays
     override func viewWillAppear(_ animated: Bool) {
-        loadData()
-        loadIngredients()
+        loadData("recipes")
+        if let state = userDefaults.value(forKey: "state") as? Bool {
+            if state {
+                updateState = true
+            }
+        }
+        if updateState {
+            stateChange()
+        }else {
+            if loadData("shopping") == 0 || loadData("completed") == 0 {
+                loadIngredients()
+            }
+            
+        }
+
+        
+        //Need to think about how to check if new recipes are added and how to append them to shopping cart.
         tableView.reloadData()
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        saveData("shopping")
+        saveData("completed")
+    }
+    
+    //MARK: Tableview datasource and delegation methods
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return sectionNames.count
     }
@@ -85,27 +114,84 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    //MARK:Load data methods
-    func loadData() {
+    //MARK: Data manipulation methods
+    func loadData(_ whichOP : String) -> Int {
+        switch whichOP {
+        case "recipes":
             if let data = try? Data(contentsOf: recipeURL!){
                 let decoder = PropertyListDecoder()
                 do {
                     selectedMeals = try decoder.decode([RecipeModel].self, from: data)
+                    return 1
                 }catch {
                     print("Error decoding data: \(error.localizedDescription)")
                 }
             }
+        case "shopping":
+            if let data = try? Data(contentsOf: shoppingURL!){
+                let decoder = PropertyListDecoder()
+                do {
+                    ingredientsObjects = try decoder.decode([IngredientModel].self, from: data)
+                    return 1
+                }catch {
+                    print("In catch statement of shopping case must do something...")
+                }
+            }else {
+                print("Did not enter if statement for case: Shopping " )
+                return 0
+            }
+        case "completed":
+            if let data = try? Data(contentsOf: completedURL!){
+                let decoder = PropertyListDecoder()
+                do {
+                 completedIngredients = try decoder.decode([IngredientModel].self, from: data)
+                    return 1
+                } catch {
+                    print("In catch statement of completed case must do something...")
+                }
+            } else {
+                print("Did not enter if statement for case: completed")
+                return 0
+            }
+            
+        default:
+            print("Fail whale :(")
+            return 1
+        }
+
+        return 1
     }
     
-    func loadIngredients() {
+    func saveData(_ type : String) {
+        let encoder = PropertyListEncoder()
+        do {
+            if type == "shopping"{
+                let data = try encoder.encode(ingredientsObjects)
+                try data.write(to: shoppingURL!)
+            }else {
+                let data = try encoder.encode(completedIngredients)
+                try data.write(to: completedURL!)
+            }
+            
+        }catch{
+            print("Error in attempting to write data")
+        }
         
+    }
+    
+    
+    //MARK: Ingredient Initializers
+    func loadIngredients() {
+        print("Inside loadIngredients")
         ingredientList.removeAll()
         for recipe in selectedMeals {
             for ingredient in recipe.ingredients {
+            
                 ingredientList.append(ingredient)
                 
             }
         }
+        print(ingredientList)
         initIngredients()
     }
     
@@ -125,6 +211,15 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
             
         }
         
+    }
+    
+    //MARK: State change
+    func stateChange() {
+        loadIngredients()
+        saveData("shopping")
+        saveData("completed")
+        tableView.reloadData()
+        userDefaults.set(false, forKey: "state")
     }
 }
 

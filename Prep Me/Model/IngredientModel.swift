@@ -9,7 +9,7 @@
 import Foundation
 
 //Plan is to create an array of this class storing the name of the ingredient as the class name and setting the amount and unit, as I go through ingredients and add to list, check to see if name exists in array if it does then update existing one with new amount else add it to array
-class IngredientModel {
+class IngredientModel: Encodable, Decodable {
     
     var amount = ""
     var unit = ""

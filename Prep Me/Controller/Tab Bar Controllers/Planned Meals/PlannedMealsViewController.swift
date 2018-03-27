@@ -24,6 +24,7 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
     let orderedString = "orderedArray"
     var chosenDish = RecipeModel()
     var selectedDay = 0
+    let userDefaults = UserDefaults.standard
 
     
     override func viewDidLoad() {
@@ -104,7 +105,6 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
          chosenDish = orderedRecipes[indexPath.section][indexPath.row]
         chosenDish.section = indexPath.section
         chosenDish.row = indexPath.row
-        print("ChosenDish : Recipe section : \(chosenDish.section), Recipe row : \(chosenDish.row)")
         if !(chosenDish.recipeName.isEmpty){
             mealTableView.deselectRow(at: indexPath, animated: false)
             performSegue(withIdentifier: "PlannedSpecificRecipe", sender: self)
@@ -122,6 +122,7 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
                 loadData(recipeString)
                 loadData(orderedString)
                 let indexofMeal = selectedMeals.index(of: orderedRecipes[indexPath.section][indexPath.row])
+                userDefaults.set(true, forKey: "state")
                 orderedRecipes[indexPath.section].remove(at: indexPath.row)
                 mealTableView.deleteRows(at: [indexPath], with: .top)
                 deleteRow(section: indexPath.section, row: indexPath.row, index: indexofMeal!)
