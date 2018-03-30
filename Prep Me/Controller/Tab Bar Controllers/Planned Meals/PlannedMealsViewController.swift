@@ -123,6 +123,7 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
                 loadData(orderedString)
                 let indexofMeal = selectedMeals.index(of: orderedRecipes[indexPath.section][indexPath.row])
                 userDefaults.set(true, forKey: "state")
+                userDefaults.set("remove", forKey: "operation")
                 orderedRecipes[indexPath.section].remove(at: indexPath.row)
                 mealTableView.deleteRows(at: [indexPath], with: .top)
                 deleteRow(section: indexPath.section, row: indexPath.row, index: indexofMeal!)

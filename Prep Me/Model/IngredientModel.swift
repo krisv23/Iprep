@@ -9,7 +9,11 @@
 import Foundation
 
 //Plan is to create an array of this class storing the name of the ingredient as the class name and setting the amount and unit, as I go through ingredients and add to list, check to see if name exists in array if it does then update existing one with new amount else add it to array
-class IngredientModel: Encodable, Decodable {
+func ==(lhs: IngredientModel, rhs: IngredientModel) -> Bool {
+    return lhs.name == rhs.name
+}
+
+class IngredientModel: Encodable, Decodable, Equatable {
     
     var amount = ""
     var unit = ""

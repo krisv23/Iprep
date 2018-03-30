@@ -36,6 +36,7 @@ class SpecificRecipeViewController: UIViewController, UIPickerViewDelegate, UIPi
     let orderedURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Ordered.plist")
     let recipeString = "selectedMeals"
     let orderedString = "orderedArray"
+    let userDefaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +87,8 @@ class SpecificRecipeViewController: UIViewController, UIPickerViewDelegate, UIPi
             encodeData(recipeString)
             encodeData(orderedString)
             alertMessage(message: "Recipe added!", title: "Success!")
+            userDefaults.set(true, forKey: "state")
+            userDefaults.set("add", forKey: "operation")
         }
         
 
