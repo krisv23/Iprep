@@ -42,6 +42,7 @@ class AddRecipeViewController: UIViewController, UITextFieldDelegate, UITableVie
         ingredientTable.dataSource = self
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
+
         
         rootRef = Database.database().reference()
         refCategory = rootRef?.child("category")
@@ -195,6 +196,13 @@ extension AddRecipeViewController : UIPickerViewDelegate, UIPickerViewDataSource
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedCategory = categories[row]
+    }
+    
+    
+    //MARK: Text Field methods
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
    
 }

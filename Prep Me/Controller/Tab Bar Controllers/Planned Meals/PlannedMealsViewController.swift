@@ -61,7 +61,6 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
                 recipe.dayChanged = false
             }
             encodeData(recipeString)
-       //     encodeData(orderedString)
             mealTableView.reloadData()
             print(numberOfRowsinSection)
         }
@@ -78,10 +77,19 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
         default:
             print("Do nothing")
         }
-        
-        
-        
     }
+    
+    @IBAction func clearRecipesPressed(_ sender: UIButton) {
+        
+        numberOfRowsinSection = [0,0,0,0,0,0,0]
+        selectedMeals.removeAll()
+        encodeData(recipeString)
+        encodeData(orderedString)
+        orderedRecipes = loadOrderedRecipe()
+        mealTableView.reloadData()
+        updateState()
+    }
+    
     
     //MARK: Tableview datasource/delegate
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -123,8 +131,6 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
                 loadData(recipeString)
                 loadData(orderedString)
                 let indexofMeal = selectedMeals.index(of: orderedRecipes[indexPath.section][indexPath.row])
-//                userDefaults.set(true, forKey: "state")
-//                userDefaults.set("remove", forKey: "operation")
                 updateState()
                 orderedRecipes[indexPath.section].remove(at: indexPath.row)
                 mealTableView.deleteRows(at: [indexPath], with: .top)
@@ -137,7 +143,6 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func updateState() {
-        print("Inside updateState")
         if let localStateArray = userDefaults.stringArray(forKey: "operation")  {
             print("localArray = \(localStateArray)")
             stateArray = localStateArray
@@ -243,12 +248,6 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
             destinationVC?.chosenDish = chosenDish
             destinationVC?.selectedDay = selectedDay
             destinationVC?.ingredientsText = chosenDish.ingredients
-//            destinationVC?.instructionsText = chosenDish.instructions
-//            destinationVC?.caloriesText = chosenDish.calories
-//            destinationVC?.servingsText = chosenDish.servings
-//            destinationVC?.leftoversText = chosenDish.leftovers
-//            destinationVC?.name = chosenDish.recipeName
-            
         }
     }
 
