@@ -25,6 +25,7 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
     var chosenDish = RecipeModel()
     var selectedDay = 0
     let userDefaults = UserDefaults.standard
+    var stateArray = ["none"]
 
     
     override func viewDidLoad() {
@@ -122,8 +123,9 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
                 loadData(recipeString)
                 loadData(orderedString)
                 let indexofMeal = selectedMeals.index(of: orderedRecipes[indexPath.section][indexPath.row])
-                userDefaults.set(true, forKey: "state")
-                userDefaults.set("remove", forKey: "operation")
+//                userDefaults.set(true, forKey: "state")
+//                userDefaults.set("remove", forKey: "operation")
+                updateState()
                 orderedRecipes[indexPath.section].remove(at: indexPath.row)
                 mealTableView.deleteRows(at: [indexPath], with: .top)
                 deleteRow(section: indexPath.section, row: indexPath.row, index: indexofMeal!)
@@ -134,7 +136,20 @@ class PlannedMealsViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-
+    func updateState() {
+        print("Inside updateState")
+        if let localStateArray = userDefaults.stringArray(forKey: "operation")  {
+            print("localArray = \(localStateArray)")
+            stateArray = localStateArray
+            stateArray.append("remove")
+        } else {
+            stateArray.append("remove")
+        }
+        
+        userDefaults.set(stateArray, forKey: "operation")
+        userDefaults.set(true, forKey: "state")
+        
+    }
     
     
     //MARK: Data manipulation methods

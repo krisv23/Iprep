@@ -28,6 +28,7 @@ class SpecificRecipeViewController: UIViewController, UIPickerViewDelegate, UIPi
     var instructions = " "
     var name = " "
     var recipeID = " "
+    var stateArray = ["none"]
     var selectedDay = "Select One"
     let daysOfWeek = ["Select One", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
     
@@ -87,11 +88,27 @@ class SpecificRecipeViewController: UIViewController, UIPickerViewDelegate, UIPi
             encodeData(recipeString)
             encodeData(orderedString)
             alertMessage(message: "Recipe added!", title: "Success!")
-            userDefaults.set(true, forKey: "state")
-            userDefaults.set("add", forKey: "operation")
+//            userDefaults.set(true, forKey: "state")
+//            userDefaults.set("add", forKey: "operation")
+            updateState()
         }
         
 
+    }
+    
+    func updateState() {
+        
+        if let localStateArray = userDefaults.stringArray(forKey: "operation")  {
+            print("localArray = \(localStateArray)")
+            stateArray = localStateArray
+            stateArray.append("add")
+        } else {
+            stateArray.append("add")
+        }
+        
+        userDefaults.set(stateArray, forKey: "operation")
+        userDefaults.set(true, forKey: "state")
+        
     }
     
     

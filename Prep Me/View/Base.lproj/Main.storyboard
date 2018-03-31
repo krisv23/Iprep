@@ -18,18 +18,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZr-lH-jqt">
-                                <rect key="frame" x="67" y="428" width="240" height="70"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="grapes" translatesAutoresizingMaskIntoConstraints="NO" id="1dH-IF-hwQ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Login"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZr-lH-jqt">
+                                <rect key="frame" x="119" y="428" width="240" height="70"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="JtZ-yi-Arh" kind="show" identifier="goToLogin" id="jiU-WM-zeE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qGa-JW-x1b">
-                                <rect key="frame" x="67" y="506" width="240" height="70"/>
+                                <rect key="frame" x="119" y="520" width="240" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Register"/>
+                                <state key="normal" title="Register">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="BaV-kI-bAC" kind="show" identifier="goToRegister" id="Zoq-Do-sCy"/>
                                 </connections>
@@ -139,7 +147,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="MBL-NU-NmO"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Recipes" id="ap3-aI-Ji0"/>
+                    <tabBarItem key="tabBarItem" title="Recipes" image="if_108_Bookmark_183234" id="ap3-aI-Ji0"/>
                     <connections>
                         <outlet property="RecipesTableView" destination="xNN-Mp-kFd" id="T1S-BM-U8R"/>
                         <segue destination="8Uq-fa-bPf" kind="showDetail" identifier="specificCategory" action="showViewController:sender:" id="g40-jj-G5q"/>
@@ -465,7 +473,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="iwW-LP-Ape"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Planned Meals" id="y4W-2M-HM8"/>
+                    <tabBarItem key="tabBarItem" title="Planned Meals" image="if_recipe_search_88450" id="y4W-2M-HM8"/>
                     <connections>
                         <outlet property="mealTableView" destination="PLN-NU-eL7" id="9Fi-3Q-7CA"/>
                         <segue destination="bjH-S0-gfw" kind="show" identifier="PlannedSpecificRecipe" id="9Hz-8D-YON"/>
@@ -497,18 +505,29 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Uh oh! Please select a recipe..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYx-3h-63N">
+                                <rect key="frame" x="16" y="49" width="262" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="niM-yV-vwy" firstAttribute="trailing" secondItem="3OC-re-NSt" secondAttribute="trailing" id="21i-B1-cXN"/>
+                            <constraint firstItem="iYx-3h-63N" firstAttribute="top" secondItem="3OC-re-NSt" secondAttribute="top" constant="29" id="LN3-d8-UUQ"/>
                             <constraint firstItem="niM-yV-vwy" firstAttribute="leading" secondItem="3OC-re-NSt" secondAttribute="leading" id="WJC-EO-07n"/>
+                            <constraint firstItem="iYx-3h-63N" firstAttribute="leading" secondItem="3OC-re-NSt" secondAttribute="leading" constant="16" id="bsL-yx-PJR"/>
+                            <constraint firstItem="3OC-re-NSt" firstAttribute="trailing" secondItem="iYx-3h-63N" secondAttribute="trailing" constant="97" id="bwc-uP-dNF"/>
+                            <constraint firstItem="niM-yV-vwy" firstAttribute="top" secondItem="iYx-3h-63N" secondAttribute="bottom" constant="6" id="chB-Zh-fne"/>
                             <constraint firstItem="niM-yV-vwy" firstAttribute="top" secondItem="3OC-re-NSt" secondAttribute="top" constant="58" id="qJH-i7-rpx"/>
                             <constraint firstItem="niM-yV-vwy" firstAttribute="bottom" secondItem="3OC-re-NSt" secondAttribute="bottom" id="vTS-K9-0Hy"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3OC-re-NSt"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Shopping Cart" id="DDC-Yk-ZxU"/>
+                    <tabBarItem key="tabBarItem" title="Shopping Cart" image="if_shopping-cart_216477" id="DDC-Yk-ZxU"/>
                     <connections>
+                        <outlet property="emptyListLabel" destination="iYx-3h-63N" id="QGK-Gp-I9N"/>
                         <outlet property="tableView" destination="niM-yV-vwy" id="1Vn-fY-MVo"/>
                     </connections>
                 </viewController>
@@ -544,7 +563,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="pRK-Do-6lF"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Home" id="Jxv-0U-F1D"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="if_food-drink-01_808990" id="Jxv-0U-F1D"/>
                     <connections>
                         <outlet property="displayNameText" destination="pjl-Oo-77K" id="JTF-ES-xeu"/>
                     </connections>
@@ -1085,7 +1104,14 @@
             <point key="canvasLocation" x="1852" y="1619.1904047976013"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="grapes" width="2464" height="1435"/>
+        <image name="if_108_Bookmark_183234" width="32" height="32"/>
+        <image name="if_food-drink-01_808990" width="32" height="32"/>
+        <image name="if_recipe_search_88450" width="32" height="32"/>
+        <image name="if_shopping-cart_216477" width="32" height="32"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2rq-bQ-XQz"/>
+        <segue reference="Pg3-IK-bQ3"/>
     </inferredMetricsTieBreakers>
 </document>

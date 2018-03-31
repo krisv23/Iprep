@@ -23,7 +23,10 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     var updateState = false
     var removeCount = 0
     
+    @IBOutlet weak var emptyListLabel: UILabel!
     
+    let localArray = ["none"]
+
     let recipeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Recipes.plist")
     let shoppingURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("shoppingList.plist")
     let completedURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("completedList.plist")
@@ -43,9 +46,10 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //TODO: Need to load shopping and completed list if not null and then display those ingredients in each, when view exiting need to save updated list for both arrays
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
         loadData("recipes")
+        updateState = false
         if let state = userDefaults.value(forKey: "state") as? Bool {
-            print(state)
             if state {
                 updateState = true
             }
@@ -54,12 +58,10 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         if updateState {
             stateChange()
         }else {
-            print("inside else statement" )
 //            loadData("shopping")
 //            loadData("completed")
 //            loadIngredients()
             if loadData("shopping") == 0 || loadData("completed") == 0 {
-                print("shopping and completed returned 0")
                 loadIngredients()
                 initIngredients()
             }
@@ -68,13 +70,26 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         //Need to think about how to check if new recipes are added and how to append them to shopping cart.
-        print("Before reload")
-        print(ingredientsObjects)
-        print(completedIngredients)
+//        print("ingredient object count : \(ingredientsObjects.count)")
+//        print("completed object count: \(completedIngredients.count)")
+//        print("selected meals count: \(selectedMeals.count)")
+        if (ingredientsObjects.count == 0 && completedIngredients.count == 0 && selectedMeals.count != 0){
+            loadIngredients()
+            initIngredients()
+        }
+        
+        if (selectedMeals.count == 0) {
+            emptyListLabel.isHidden = false
+        }else {
+            emptyListLabel.isHidden = true
+
+        }
+
         tableView.reloadData()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
         print("Saving shopping & Completed")
         saveData("shopping")
         saveData("completed")
@@ -317,16 +332,20 @@ class ShoppingListVC: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     
     
-    //MARK: State change (If a recipe is added or removed)
+    //MARK: StateArray keep track of the operations performed on the other tab bar controllers. If an add or remove operation was performed the appropriate function get's called.
     func stateChange() {
         print("inside statechange")
         loadIngredients()
-        if let operation = userDefaults.value(forKey: "operation") as? String {
-            if operation == "add" {
+        if let stateArray = userDefaults.stringArray(forKey: "operation"){
+            print("state array = \(stateArray)")
+            if stateArray.contains("add"){
                 addIngredients()
-            }else if operation == "remove"{
+            }
+            if stateArray.contains("remove"){
                 removeIngredients()
             }
+            
+            userDefaults.set(localArray, forKey: "operation")
         }
         saveData("shopping")
         saveData("completed")
