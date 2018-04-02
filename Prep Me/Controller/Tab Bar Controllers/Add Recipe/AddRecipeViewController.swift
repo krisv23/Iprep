@@ -218,27 +218,20 @@ extension AddRecipeViewController : UIPickerViewDelegate, UIPickerViewDataSource
     //MARK: Keyboard adjustment methods
     
     @objc func keyboardWillShow(notification : NSNotification) {
-       print("Inside keyboardwillshow")
-        let userinfo = notification.userInfo
-        let keyboardFrame = (userinfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        let userInfo = notification.userInfo
+        let keyboardFrame = (userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let adjustment = keyboardFrame.height + 40
-        print("Keyboard frame = \(keyboardFrame), adjustment = \(adjustment)")
         addRecipeScrollView.contentInset.bottom += adjustment
         addRecipeScrollView.scrollIndicatorInsets.bottom += adjustment
-        print("ContentInset = \(addRecipeScrollView.contentInset.bottom)")
-        print("ScrollInset = \(addRecipeScrollView.scrollIndicatorInsets.bottom)")
         
     }
     
     @objc func keyboardWillHide(notification : NSNotification) {
-        print("inside keyboardwillhide")
         let userInfo = notification.userInfo
-        let keyboardFrame = (userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        let keyboardFrame = (userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let adjustment = keyboardFrame.height + 40
-        print("Keyboard frame = \(keyboardFrame), adjustment = \(adjustment)")
         addRecipeScrollView.contentInset.bottom -= adjustment
         addRecipeScrollView.scrollIndicatorInsets.bottom -= adjustment
-        print("ContentInset = \(addRecipeScrollView.contentInset.bottom)")
     }
     
 }
