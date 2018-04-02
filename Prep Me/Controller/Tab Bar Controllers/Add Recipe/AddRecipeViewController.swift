@@ -13,7 +13,7 @@ import Firebase
 import SVProgressHUD
 
 
-class AddRecipeViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate {
+class AddRecipeViewController: UIViewController, UITextFieldDelegate, UITableViewDelegate, UITextViewDelegate {
 
     
     @IBOutlet weak var ingredientTable: UITableView!
@@ -23,6 +23,7 @@ class AddRecipeViewController: UIViewController, UITextFieldDelegate, UITableVie
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var caloriesText: UITextField!
     @IBOutlet weak var servingsText: UITextField!
+    @IBOutlet weak var addRecipeScrollView: UIScrollView!
     
     
     
@@ -42,6 +43,13 @@ class AddRecipeViewController: UIViewController, UITextFieldDelegate, UITableVie
         ingredientTable.dataSource = self
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(AddRecipeViewController.keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AddRecipeViewController.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+
+        let tap = UITapGestureRecognizer(target: self, action: #selector(AddRecipeViewController.hideKeyBoard))
+       // tap.cancelsTouchesInView = false
+        self.view.addGestureRecognizer(tap)
 
         
         rootRef = Database.database().reference()
@@ -117,9 +125,7 @@ class AddRecipeViewController: UIViewController, UITextFieldDelegate, UITableVie
         let alertController = UIAlertController(title: "Error!", message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alertController.addAction(action)
-        
         present(alertController, animated: true, completion: nil)
-        
     }
     
     
@@ -205,6 +211,36 @@ extension AddRecipeViewController : UIPickerViewDelegate, UIPickerViewDataSource
         return true
     }
    
+    @objc func hideKeyBoard() {
+        self.view.endEditing(true)
+    }
+    
+    //MARK: Keyboard adjustment methods
+    
+    @objc func keyboardWillShow(notification : NSNotification) {
+       print("Inside keyboardwillshow")
+        let userinfo = notification.userInfo
+        let keyboardFrame = (userinfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        let adjustment = keyboardFrame.height + 40
+        print("Keyboard frame = \(keyboardFrame), adjustment = \(adjustment)")
+        addRecipeScrollView.contentInset.bottom += adjustment
+        addRecipeScrollView.scrollIndicatorInsets.bottom += adjustment
+        print("ContentInset = \(addRecipeScrollView.contentInset.bottom)")
+        print("ScrollInset = \(addRecipeScrollView.scrollIndicatorInsets.bottom)")
+        
+    }
+    
+    @objc func keyboardWillHide(notification : NSNotification) {
+        print("inside keyboardwillhide")
+        let userInfo = notification.userInfo
+        let keyboardFrame = (userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        let adjustment = keyboardFrame.height + 40
+        print("Keyboard frame = \(keyboardFrame), adjustment = \(adjustment)")
+        addRecipeScrollView.contentInset.bottom -= adjustment
+        addRecipeScrollView.scrollIndicatorInsets.bottom -= adjustment
+        print("ContentInset = \(addRecipeScrollView.contentInset.bottom)")
+    }
+    
 }
 
 

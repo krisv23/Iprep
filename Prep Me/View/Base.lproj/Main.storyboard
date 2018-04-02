@@ -757,7 +757,6 @@
                                             <constraint firstItem="qOe-Sc-5iF" firstAttribute="leading" secondItem="Z9Y-Kt-wZy" secondAttribute="leading" id="CAM-hE-Sac"/>
                                             <constraint firstItem="qOe-Sc-5iF" firstAttribute="top" secondItem="EkT-Lj-SiK" secondAttribute="bottom" constant="33" id="DWE-dc-Uvs"/>
                                             <constraint firstItem="EkT-Lj-SiK" firstAttribute="leading" secondItem="qOe-Sc-5iF" secondAttribute="leading" id="H91-Li-aPg"/>
-                                            <constraint firstItem="GrF-Ei-5Vy" firstAttribute="top" secondItem="7hT-YG-PjT" secondAttribute="topMargin" constant="26" id="Kvk-gO-sgC"/>
                                             <constraint firstItem="eU1-wm-eUB" firstAttribute="leading" secondItem="aSd-r6-Sne" secondAttribute="leading" constant="75" id="M8b-yS-gYe"/>
                                             <constraint firstItem="bwt-ec-JYo" firstAttribute="top" secondItem="7hT-YG-PjT" secondAttribute="top" constant="54" id="N1J-rM-GiV"/>
                                             <constraint firstItem="GrF-Ei-5Vy" firstAttribute="leading" secondItem="7hT-YG-PjT" secondAttribute="leading" id="Nny-Vt-QAL"/>
@@ -824,6 +823,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="1200"/>
                     <connections>
+                        <outlet property="addRecipeScrollView" destination="Dkq-6L-he3" id="1nG-q6-QfJ"/>
                         <outlet property="caloriesText" destination="eU1-wm-eUB" id="SUa-k2-VET"/>
                         <outlet property="categoryPicker" destination="ojX-hh-6EW" id="j27-e2-U4o"/>
                         <outlet property="ingredientTable" destination="ig3-B4-Gv3" id="DdM-tF-Rct"/>
